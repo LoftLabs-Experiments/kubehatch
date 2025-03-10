@@ -1,10 +1,5 @@
-# .goreleaser.yaml
-version: "2"
-
+version: 2
 project_name: kubehatch
-
-monorepo:
-  tag_prefix: kubehatch/
 
 release:
   github:
@@ -13,8 +8,7 @@ release:
 
 builds:
   - id: backend
-    dir: backend
-    main: ./main.go
+    main: ./backend/main.go
     binary: kubehatch
     goos:
       - linux
@@ -30,27 +24,25 @@ archives:
   - id: backend_archive
     builds:
       - backend
-    format: tar.gz
-    replacements:
-      darwin: macOS
     files:
       - LICENSE
       - README.md
 
 checksum:
-  name_template: 'checksums.txt'
+  name_template: "checksums.txt"
 
-docker:
+dockers:
   - id: backend_docker
     image_templates:
-      - "LoftLabs-Experiments/kubehatch-backend:{{ .Tag }}"
+      - "ghcr.io/LoftLabs-Experiments/kubehatch-backend:{{ .Tag }}"
     dockerfile: backend/Dockerfile.backend
     build_flag_templates:
       - "--platform=linux/amd64"
     skip_push: false
+
   - id: frontend_docker
     image_templates:
-      - "LoftLabs-Experiments/kubehatch-frontend:{{ .Tag }}"
+      - "ghcr.io/LoftLabs-Experiments/kubehatch-frontend:{{ .Tag }}"
     dockerfile: frontend/Dockerfile.frontend
     build_flag_templates:
       - "--platform=linux/amd64"
