@@ -1,34 +1,36 @@
-version: '2'
+name: Release KubeHatch
 
-project_name: kubehatch
+on:
+  push:
+    tags:
+      - 'v*.*.*'
 
-release:
-  github:
-    owner: LoftLabs-Experiments
-    name: kubehatch
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
 
-builds:
-  - main: ./backend/main.go
-    binary: kubehatch
-    goos:
-      - linux
-      - darwin
-      - windows
-    goarch:
-      - amd64
-      - arm64
+    steps:
+      - uses: actions/checkout@v4
 
-archives:
-  - format: tar.gz
-    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.1'
 
-checksum:
-  name_template: 'checksums.txt'
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-dockers:
-  - image_templates:
-      - "LoftLabs-Experiments/kubehatch-backend:{{ .Tag }}"
-    dockerfile: backend/Dockerfile.backend
-    build_flag_templates:
-      - "--platform=linux/amd64"
-    skip_push: false
+      - name: Run GoReleaser
+        working-directory: backend  # Ensure it runs from the correct directory
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
