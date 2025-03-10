@@ -1,4 +1,3 @@
-
 project_name: kubehatch
 
 release:
@@ -25,31 +24,37 @@ archives:
   - id: backend_archive
     builds:
       - backend
-    format_overrides:
-      - goos: windows
-        format: zip
+    format: tar.gz
+    replacements:
+      darwin: macOS
     files:
       - LICENSE
       - README.md
+      - frontend/index.html  # ✅ Ensure index.html is included
+      - frontend/*           # ✅ Ensure all frontend files are included
 
 checksum:
   name_template: "checksums.txt"
 
-dockers:  # ✅ FIXED: Correct key is 'dockers', not 'docker'
+dockers:
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-backend:{{ .Tag }}"
+      - "ghcr.io/loftlabs-experiments/kubehatch-backend:latest"
     dockerfile: backend/Dockerfile.backend
     build_flag_templates:
       - "--platform=linux/amd64"
     use: "buildx"
     skip_push: false
+    extra_files:
+      - frontend/index.html  # ✅ Ensure index.html is added to Docker build context
 
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
+      - "ghcr.io/loftlabs-experiments/kubehatch-frontend:latest"
     dockerfile: frontend/Dockerfile.frontend
-    files:
-      - frontend/index.html
     build_flag_templates:
       - "--platform=linux/amd64"
     use: "buildx"
     skip_push: false
+    extra_files:
+      - frontend/index.html  # ✅ Ensure index.html is added to Docker build context
