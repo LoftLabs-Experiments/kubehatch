@@ -1,33 +1,43 @@
-version: '2'
-
+version: 2
 project_name: kubehatch
-release:
-  github:
-    owner: LoftLabs-Experiments
-    name: kubehatch
 
 builds:
-  - main: ./backend/main.go
+  - id: kubehatch-backend
+    main: ./backend/main.go
     binary: kubehatch
     goos:
       - linux
       - darwin
       - windows
-    goarch:
-      - amd64
-      - arm64
+
+dockers:
+  - image_templates:
+      - "ghcr.io/loftlabs-experiments/kubehatch:{{ .Version }}"
+    dockerfile: backend/Dockerfile.backend
+    builds:
+      - backend
+
+builds:
+  - id: backend
+    main: backend/main.go
+    binary: kubehatch-backend
+    goos:
+      - linux
+      - darwin
+      - windows
 
 archives:
-  - replacements:
-      darwin: macOS
+  - format: tar.gz
+    builds:
+      - backend
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      amd64: amd64
+      arm64: arm64
 
-checksum:
-  name_template: 'checksums.txt'
-
-docker:
-  - image_templates:
-      - "yourdockerregistry/kubehatch-backend:{{ .Tag }}"
-    dockerfile: backend/Dockerfile.backend
-    build_flag_templates:
-      - "--platform=linux/amd64"
-    skip_push: false
+release:
+  github:
+    owner: LoftLabs-Experiments
+    name: kubehatch
