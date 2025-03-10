@@ -47,6 +47,8 @@ dockers:  # ✅ FIXED: Correct key is 'dockers', not 'docker'
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
     dockerfile: frontend/Dockerfile.frontend
+    files:
+      - frontend/index.html
     build_flag_templates:
       - "--platform=linux/amd64"
     use: "buildx"
