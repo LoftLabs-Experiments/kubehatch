@@ -1,0 +1,49 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vcluster-backend-role
+rules:
+  - apiGroups: [""]
+    resources:
+      - "namespaces"
+      - "secrets"
+      - "configmaps"
+      - "serviceaccounts"
+      - "persistentvolumeclaims"
+      - "pods"
+      - "services"
+    verbs: ["create", "get", "list", "watch", "update", "delete"]
+
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "rolebindings"]
+    verbs: ["create", "get", "list", "watch", "update", "delete"]
+
+  - apiGroups: ["apps"]
+    resources: ["statefulsets", "deployments", "replicasets"]
+    verbs: ["create", "get", "list", "watch", "update", "delete"]
+
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["create", "get", "list", "watch", "update", "delete"]
+
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["get", "list", "watch"]
+
+  - apiGroups: ["helm.toolkit.fluxcd.io"]
+    resources: ["helmreleases"]
+    verbs: ["create", "get", "list", "watch", "update", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vcluster-backend-rolebinding
+subjects:
+  - kind: ServiceAccount
+    name: vcluster-backend-sa
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: vcluster-backend-role
+  apiGroup: rbac.authorization.k8s.io
+

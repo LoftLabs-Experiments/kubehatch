@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>vCluster Creator UI</title>
+</head>
+<body>
+    <h1>Create Virtual Cluster</h1>
+    <form id="vclusterForm" enctype="multipart/form-data">
+        <label for="kubeconfigFile">Upload Host Kubeconfig File (Optional):</label><br>
+        <input type="file" id="kubeconfigFile" name="kubeconfigFile"><br><br>
+
+        <label for="name">Virtual Cluster Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="ha">Enable HA:</label>
+        <input type="checkbox" id="ha" name="ha"><br><br>
+
+        <button type="submit">Create</button>
+    </form>
+
+    <div id="result" style="display:none;">
+        <h2>Generated Kubeconfig</h2>
+        <textarea id="kubeconfigResult" rows="20" cols="100"></textarea>
+        <br><br>
+        <a id="downloadLink" href="#">Download Kubeconfig</a>
+    </div>
+
+    <script>
+        document.getElementById("vclusterForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const formData = new FormData();
+            const fileInput = document.getElementById("kubeconfigFile");
+
+            // ✅ Only append kubeconfigFile if a file was selected
+            if(fileInput.files.length > 0) {
+                formData.append("kubeconfigFile", fileInput.files[0]);
+            }
+
+            formData.append("clusterName", document.getElementById("name").value);
+            if(document.getElementById("ha").checked){
+                formData.append("ha", "on");
+            }
+
+            try {
+                // ✅ Use relative URL so Ingress properly routes the request
+                const response = await fetch("/api/vcluster", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error("Error creating vCluster: " + await response.text());
+                }
+
+                const data = await response.json();
+                document.getElementById("kubeconfigResult").value = data.kubeconfig;
+                document.getElementById("result").style.display = "block";
+
+                // ✅ Allow user to download kubeconfig
+                const blob = new Blob([data.kubeconfig], { type: 'application/octet-stream' });
+                const url = URL.createObjectURL(blob);
+                document.getElementById("downloadLink").href = url;
+                document.getElementById("downloadLink").download = "kubeconfig.yaml";
+
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+    </script>
+</body>
+</html>
+

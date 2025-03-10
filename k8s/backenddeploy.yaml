@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vcluster-backend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vcluster-backend
+  template:
+    metadata:
+      labels:
+        app: vcluster-backend
+    spec:
+      serviceAccountName: vcluster-backend-sa
+      volumes:
+        - name: kubeconfig-secret
+          secret:
+            secretName: vcluster-default-kubeconfig
+      containers:
+        - name: backend
+          image: ttl.sh/vcluster-back:v3
+          ports:
+            - containerPort: 8081
+          volumeMounts:
+            - name: kubeconfig-secret
+              mountPath: /var/secrets
+              readOnly: true
+

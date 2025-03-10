@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: VirtualCluster
+metadata:
+  name: dsas
+spec:
+  replicas: 1
+  service:
+    type: LoadBalancer

@@ -1,0 +1,39 @@
+# Multi-stage build for efficiency
+FROM golang:1.22 AS builder
+
+WORKDIR /app
+
+# Copy dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Build the Go binary
+RUN CGO_ENABLED=0 GOOS=linux go build -o vcluster-backend .
+
+# Use a minimal runtime image
+FROM alpine:latest
+
+WORKDIR /root
+
+# Install dependencies: kubectl, Helm, vCluster CLI, and curl for debugging
+RUN apk add --no-cache helm curl bash jq \
+    && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && chmod +x kubectl && mv kubectl /usr/local/bin/kubectl \
+    && curl -LO "https://github.com/loft-sh/vcluster/releases/latest/download/vcluster-linux-amd64" \
+    && chmod +x vcluster-linux-amd64 && mv vcluster-linux-amd64 /usr/local/bin/vcluster
+
+# Copy the backend binary from the builder stage
+COPY --from=builder /app/vcluster-backend /usr/local/bin/
+
+# Ensure default kubeconfig secret is accessible
+VOLUME ["/var/secrets"]
+
+# Expose the backend port
+EXPOSE 8081
+
+# Start the backend API
+CMD ["/usr/local/bin/vcluster-backend"]
+

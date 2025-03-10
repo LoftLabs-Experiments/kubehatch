@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vcluster-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vcluster-frontend
+  template:
+    metadata:
+      labels:
+        app: vcluster-frontend
+    spec:
+      containers:
+      - name: vcluster-frontend
+        image: ttl.sh/vcluster-frontend:v2
+        ports:
+        - containerPort: 80
+
