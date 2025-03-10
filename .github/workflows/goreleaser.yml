@@ -28,9 +28,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run GoReleaser
-        working-directory: backend  # Ensure it runs from the correct directory
-        uses: goreleaser/goreleaser-action@v6
-        with:
-          args: release --clean
+        run: |
+          cd backend
+          goreleaser release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
