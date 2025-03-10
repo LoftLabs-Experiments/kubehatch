@@ -9,8 +9,7 @@ release:
 
 builds:
   - id: backend
-    dir: backend
-    main: ./main.go
+    main: ./main.go  # Points to /kubehatch/backend/main.go when run from backend/
     binary: kubehatch
     goos:
       - linux
@@ -43,7 +42,7 @@ dockers:
     dockerfile: backend/Dockerfile.backend
     build_flag_templates:
       - "--platform=linux/amd64"
-    use: "buildx"
+    use: buildx
     skip_push: false
     extra_files:
       - frontend/index.html
@@ -54,7 +53,7 @@ dockers:
     dockerfile: frontend/Dockerfile.frontend
     build_flag_templates:
       - "--platform=linux/amd64"
-    use: "buildx"
+    use: buildx
     skip_push: false
     extra_files:
       - frontend/index.html
