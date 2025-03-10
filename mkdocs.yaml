@@ -1,0 +1,12 @@
+site_name: KubeHatch CLI
+theme:
+  name: material
+  palette:
+    scheme: slate
+nav:
+  - Home: index.md
+  - Quickstart: QUICKSTART.md
+  - Build from Source: BUILD.md
+
+repo_url: https://github.com/LoftLabs-Experiments/kubehatch
+repo_name: LoftLabs-Experiments/kubehatch
