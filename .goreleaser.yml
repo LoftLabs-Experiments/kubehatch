@@ -43,14 +43,14 @@ checksum:
 docker:
   - id: backend_docker
     image_templates:
-      - "yourdockerregistry/kubehatch-backend:{{ .Tag }}"
+      - "LoftLabs-Experiments/kubehatch-backend:{{ .Tag }}"
     dockerfile: backend/Dockerfile.backend
     build_flag_templates:
       - "--platform=linux/amd64"
     skip_push: false
   - id: frontend_docker
     image_templates:
-      - "yourdockerregistry/kubehatch-frontend:{{ .Tag }}"
+      - "LoftLabs-Experiments/kubehatch-frontend:{{ .Tag }}"
     dockerfile: frontend/Dockerfile.frontend
     build_flag_templates:
       - "--platform=linux/amd64"
