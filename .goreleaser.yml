@@ -45,6 +45,7 @@ dockers:
       - "--platform=linux/amd64"
     use: "buildx"
     skip_push: false
+    push: true
     extra_files:
       - frontend/index.html  # ✅ Ensure index.html is added to Docker build context
 
@@ -56,5 +57,6 @@ dockers:
       - "--platform=linux/amd64"
     use: "buildx"
     skip_push: false
+    push: true
     extra_files:
       - frontend/index.html  # ✅ Ensure index.html is added to Docker build context
