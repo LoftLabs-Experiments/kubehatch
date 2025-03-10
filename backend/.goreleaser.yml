@@ -1,4 +1,5 @@
 version: 2
+
 project_name: kubehatch
 
 release:
@@ -26,13 +27,11 @@ archives:
     builds:
       - backend
     format: tar.gz
-    replacements:
-      darwin: macOS
     files:
       - LICENSE
       - README.md
-      - frontend/index.html  # ✅ Ensure index.html is included
-      - frontend/*           # ✅ Ensure all frontend files are included
+      - frontend/index.html
+      - frontend/*
 
 checksum:
   name_template: "checksums.txt"
@@ -46,9 +45,8 @@ dockers:
       - "--platform=linux/amd64"
     use: "buildx"
     skip_push: false
-    push: true
     extra_files:
-      - frontend/index.html  # ✅ Ensure index.html is added to Docker build context
+      - frontend/index.html
 
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
@@ -58,6 +56,5 @@ dockers:
       - "--platform=linux/amd64"
     use: "buildx"
     skip_push: false
-    push: true
     extra_files:
-      - frontend/index.html  # ✅ Ensure index.html is added to Docker build context
+      - frontend/index.html
