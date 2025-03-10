@@ -27,10 +27,8 @@ archives:
       - backend
     format: tar.gz
     files:
-      - LICENSE
-      - README.md
-      - frontend/index.html
-      - frontend/*
+      - ../frontend/index.html
+      - ../frontend/*
 
 checksum:
   name_template: "checksums.txt"
@@ -45,7 +43,7 @@ dockers:
     use: buildx
     skip_push: false
     extra_files:
-      - frontend/index.html
+      - ../frontend/index.html
 
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
@@ -56,4 +54,4 @@ dockers:
     use: buildx
     skip_push: false
     extra_files:
-      - frontend/index.html
+      - ../frontend/index.html
