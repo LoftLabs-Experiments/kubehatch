@@ -43,6 +43,7 @@ dockers:  # ✅ FIXED: Correct key is 'dockers', not 'docker'
     build_flag_templates:
       - "--platform=linux/amd64"
     use: "buildx"
+    skip_push: false
 
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
@@ -50,4 +51,4 @@ dockers:  # ✅ FIXED: Correct key is 'dockers', not 'docker'
     build_flag_templates:
       - "--platform=linux/amd64"
     use: "buildx"
-
+    skip_push: false
