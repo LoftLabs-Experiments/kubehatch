@@ -1,8 +1,11 @@
+version: '2'
+
 project_name: kubehatch
 release:
   github:
     owner: LoftLabs-Experiments
     name: kubehatch
+
 builds:
   - main: ./backend/main.go
     binary: kubehatch
@@ -13,14 +16,17 @@ builds:
     goarch:
       - amd64
       - arm64
+
 archives:
   - replacements:
       darwin: macOS
+
 checksum:
   name_template: 'checksums.txt'
+
 docker:
   - image_templates:
-      - "saiyam911/kubehatch-backend:{{ .Tag }}"
+      - "yourdockerregistry/kubehatch-backend:{{ .Tag }}"
     dockerfile: backend/Dockerfile.backend
     build_flag_templates:
       - "--platform=linux/amd64"
