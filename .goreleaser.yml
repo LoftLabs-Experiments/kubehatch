@@ -21,6 +21,7 @@ builds:
       - arm64
     env:
       - CGO_ENABLED=0
+
 archives:
   - id: backend_archive
     builds:
@@ -28,7 +29,7 @@ archives:
     format: tar.gz
     files:
       - frontend/index.html
-      - frontend/*
+      - frontend/*  # ✅ Ensures all frontend files are included
 
 checksum:
   name_template: "checksums.txt"
@@ -41,7 +42,9 @@ dockers:
     build_flag_templates:
       - "--platform=linux/amd64"
     use: buildx
-    skip_push: false
+    skip_push: true  # ✅ Skip push since we'll manually push later
+    extra_files:
+      - frontend/index.html  # ✅ Ensures frontend files exist
 
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
@@ -50,6 +53,7 @@ dockers:
     build_flag_templates:
       - "--platform=linux/amd64"
     use: buildx
-    skip_push: false
+    skip_push: true  # ✅ Skip push since we'll manually push later
     extra_files:
-      - frontend/index.html
+      - frontend/index.html  # ✅ Ensures frontend files exist
+

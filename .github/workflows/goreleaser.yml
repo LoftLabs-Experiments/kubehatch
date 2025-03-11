@@ -32,6 +32,19 @@ jobs:
           distribution: goreleaser
           version: '~> v2'
           args: release --clean
-          workdir: backend
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ✅ Manually build and push Docker images
+      - name: Build & Push Backend Image
+        run: |
+          docker build -t ghcr.io/loftlabs-experiments/kubehatch-backend:${{ github.ref_name }} -t ghcr.io/loftlabs-experiments/kubehatch-backend:latest -f backend/Dockerfile.backend backend/
+          docker push ghcr.io/loftlabs-experiments/kubehatch-backend:${{ github.ref_name }}
+          docker push ghcr.io/loftlabs-experiments/kubehatch-backend:latest
+
+      - name: Build & Push Frontend Image
+        run: |
+          docker build -t ghcr.io/loftlabs-experiments/kubehatch-frontend:${{ github.ref_name }} -t ghcr.io/loftlabs-experiments/kubehatch-frontend:latest -f frontend/Dockerfile.frontend frontend/
+          docker push ghcr.io/loftlabs-experiments/kubehatch-frontend:${{ github.ref_name }}
+          docker push ghcr.io/loftlabs-experiments/kubehatch-frontend:latest
+
