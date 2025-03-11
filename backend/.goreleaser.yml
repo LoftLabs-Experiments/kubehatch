@@ -34,7 +34,7 @@ dockers:
     use: buildx
     skip_push: false
     extra_files:
-      - ../frontend/index.html  # /kubehatch/frontend/index.html
+      - ../frontend/index.html  # Still needed if Dockerfile.backend uses it
 
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
@@ -44,5 +44,4 @@ dockers:
       - "--platform=linux/amd64"
     use: buildx
     skip_push: false
-    extra_files:
-      - ../frontend/index.html  # /kubehatch/frontend/index.html
+    # Removed extra_files since index.html is in the frontend/ context
