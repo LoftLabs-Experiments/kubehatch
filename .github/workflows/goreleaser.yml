@@ -17,7 +17,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Required for changelog generation
+          fetch-depth: 0
+
+      - name: List Files  # Debug step to confirm filesystem state
+        run: ls -lR
+        working-directory: .
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -40,6 +44,3 @@ jobs:
           workdir: backend
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          
-

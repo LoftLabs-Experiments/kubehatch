@@ -21,14 +21,6 @@ builds:
     env:
       - CGO_ENABLED=0
 
-archives:
-  - id: backend_archive
-    builds:
-      - backend
-    format: tar.gz
-    files:
-      - ../frontend/index.html  # Should resolve to /kubehatch/frontend/index.html
-
 checksum:
   name_template: "checksums.txt"
 
