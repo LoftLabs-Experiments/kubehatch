@@ -21,6 +21,17 @@ builds:
       - arm64
     env:
       - CGO_ENABLED=0
+archives:
+  - id: backend_archive
+    builds:
+      - backend
+    format: tar.gz
+    files:
+      - frontend/index.html
+      - frontend/*
+
+checksum:
+  name_template: "checksums.txt"
 
 dockers:
   - image_templates:
