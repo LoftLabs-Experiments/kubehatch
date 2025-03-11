@@ -2,7 +2,9 @@ site_name: KubeHatch CLI
 theme:
   name: material
   palette:
-    scheme: slate
+    scheme: default
+    primary: blue
+    accent: cyan
 nav:
   - Home: index.md
   - Quickstart: QUICKSTART.md
@@ -10,3 +12,6 @@ nav:
 
 repo_url: https://github.com/LoftLabs-Experiments/kubehatch
 repo_name: LoftLabs-Experiments/kubehatch
+
+site_dir: site
+
