@@ -9,7 +9,8 @@ release:
 
 builds:
   - id: backend
-    main: ./main.go  # /kubehatch/backend/main.go
+    dir: backend
+    main: ./main.go
     binary: kubehatch
     goos:
       - linux
@@ -21,27 +22,21 @@ builds:
     env:
       - CGO_ENABLED=0
 
-checksum:
-  name_template: "checksums.txt"
-
 dockers:
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-backend:{{ .Tag }}"
       - "ghcr.io/loftlabs-experiments/kubehatch-backend:latest"
-    dockerfile: Dockerfile.backend  # /kubehatch/backend/Dockerfile.backend
+    dockerfile: backend/Dockerfile.backend
     build_flag_templates:
       - "--platform=linux/amd64"
     use: buildx
     skip_push: false
-    extra_files:
-      - ../frontend/index.html  # Still needed if Dockerfile.backend uses it
 
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:latest"
-    dockerfile: ../frontend/Dockerfile.frontend  # /kubehatch/frontend/Dockerfile.frontend
+    dockerfile: frontend/Dockerfile.frontend
     build_flag_templates:
       - "--platform=linux/amd64"
     use: buildx
     skip_push: false
-    # Removed extra_files since index.html is in the frontend/ context

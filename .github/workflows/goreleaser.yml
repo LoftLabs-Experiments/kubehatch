@@ -1,39 +1,30 @@
-name: Release KubeHatch
+name: Release
 
 on:
   push:
     tags:
-      - 'v*.*.*'
-
-permissions:
-  contents: write
-  packages: write
+      - "v*"
 
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: List Files  # Debug step to confirm filesystem state
-        run: ls -lR
-        working-directory: .
-
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22.1'
+          go-version: 1.22.1
 
-      - name: Login to GitHub Container Registry
+      - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
@@ -41,6 +32,5 @@ jobs:
           distribution: goreleaser
           version: '~> v2'
           args: release --clean
-          workdir: backend
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
