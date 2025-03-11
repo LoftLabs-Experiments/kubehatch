@@ -34,26 +34,3 @@ archives:
 checksum:
   name_template: "checksums.txt"
 
-dockers:
-  - image_templates:
-      - "ghcr.io/loftlabs-experiments/kubehatch-backend:{{ .Tag }}"
-      - "ghcr.io/loftlabs-experiments/kubehatch-backend:latest"
-    dockerfile: backend/Dockerfile.backend
-    build_flag_templates:
-      - "--platform=linux/amd64"
-    use: buildx
-    skip_push: true  # ✅ Skip push since we'll manually push later
-    extra_files:
-      - frontend/index.html  # ✅ Ensures frontend files exist
-
-  - image_templates:
-      - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
-      - "ghcr.io/loftlabs-experiments/kubehatch-frontend:latest"
-    dockerfile: frontend/Dockerfile.frontend
-    build_flag_templates:
-      - "--platform=linux/amd64"
-    use: buildx
-    skip_push: true  # ✅ Skip push since we'll manually push later
-    extra_files:
-      - frontend/index.html  # ✅ Ensures frontend files exist
-
