@@ -9,7 +9,7 @@ release:
 
 builds:
   - id: backend
-    main: ./main.go  # Points to /kubehatch/backend/main.go when run from backend/
+    main: ./main.go  # /kubehatch/backend/main.go
     binary: kubehatch
     goos:
       - linux
@@ -27,8 +27,7 @@ archives:
       - backend
     format: tar.gz
     files:
-      - ../frontend/index.html
-      - ../frontend/*
+      - ../frontend/index.html  # Should resolve to /kubehatch/frontend/index.html
 
 checksum:
   name_template: "checksums.txt"
@@ -37,21 +36,21 @@ dockers:
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-backend:{{ .Tag }}"
       - "ghcr.io/loftlabs-experiments/kubehatch-backend:latest"
-    dockerfile: backend/Dockerfile.backend
+    dockerfile: Dockerfile.backend  # /kubehatch/backend/Dockerfile.backend
     build_flag_templates:
       - "--platform=linux/amd64"
     use: buildx
     skip_push: false
     extra_files:
-      - ../frontend/index.html
+      - ../frontend/index.html  # /kubehatch/frontend/index.html
 
   - image_templates:
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:{{ .Tag }}"
       - "ghcr.io/loftlabs-experiments/kubehatch-frontend:latest"
-    dockerfile: frontend/Dockerfile.frontend
+    dockerfile: ../frontend/Dockerfile.frontend  # /kubehatch/frontend/Dockerfile.frontend
     build_flag_templates:
       - "--platform=linux/amd64"
     use: buildx
     skip_push: false
     extra_files:
-      - ../frontend/index.html
+      - ../frontend/index.html  # /kubehatch/frontend/index.html
