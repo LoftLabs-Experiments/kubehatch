@@ -40,3 +40,5 @@ dockers:
       - "--platform=linux/amd64"
     use: buildx
     skip_push: false
+    extra_files:
+      - frontend/index.html
