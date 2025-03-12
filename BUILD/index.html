@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#building-kubehatch-locally" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -264,6 +269,20 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Build from Source
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -275,6 +294,70 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      📌 Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-clone-the-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Step 1: Clone the Repository
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 2: Install Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Verify Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Additional Notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -297,6 +380,61 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      📌 Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-clone-the-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Step 1: Clone the Repository
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 2: Install Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Verify Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Additional Notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -315,9 +453,47 @@
   
 
 
-  <h1>Build from Source</h1>
+<h1 id="building-kubehatch-locally">🛠️ Building KubeHatch Locally</h1>
+<p>This guide will walk you through setting up and building the KubeHatch CLI from source.</p>
+<hr />
+<h2 id="prerequisites">📌 Prerequisites</h2>
+<p>Before you start, ensure you have the following installed:</p>
+<ul>
+<li><strong>Go</strong> (1.22 or later) → <a href="https://go.dev/dl/">Download Go</a></li>
+<li><strong>Git</strong> (for cloning the repository) → <a href="https://git-scm.com/">Install Git</a></li>
+<li><strong>A Kubernetes cluster</strong> (for testing, optional)</li>
+<li><strong>Kubectl &amp; Helm</strong> (optional, for cluster interaction)</li>
+</ul>
+<hr />
+<h2 id="step-1-clone-the-repository">🚀 Step 1: Clone the Repository</h2>
+<p>First, clone the repository from GitHub:</p>
+<pre><code class="language-sh">git clone https://github.com/LoftLabs-Experiments/kubehatch.git
+cd kubehatch
+</code></pre>
+<h2 id="step-2-install-dependencies">⚙️ Step 2: Install Dependencies</h2>
+<p>Navigate to the backend/ directory and fetch the required Go modules:</p>
+<pre><code>cd backend
+go mod github.com/YOUR-USERNAME/kubehatch
+go mod tidy
+</code></pre>
+<p>🏗️ Step 3: Build the KubeHatch CLI
+Run the following command inside the backend/ directory to compile the binary:</p>
+<pre><code>go build -o kubehatch main.go
 
-
+</code></pre>
+<p>This will generate an executable named kubehatch inside the backend/ directory.</p>
+<h2 id="step-4-verify-installation">Step 4: Verify Installation</h2>
+<p>Check if the CLI is built correctly by running:</p>
+<pre><code>./kubehatch
+</code></pre>
+<p>You should see the available commands and usage.</p>
+<h2 id="additional-notes">📝 Additional Notes</h2>
+<p>If you make changes to dependencies, always run go mod tidy before building.</p>
+<p>To cross-compile for different operating systems, use:</p>
+<pre><code>GOOS=linux GOARCH=amd64 go build -o kubehatch-linux main.go
+</code></pre>
+<p>🎉 Congratulations! You have successfully built the KubeHatch CLI from source. 🚀</p>
+<p>For further details, visit the <strong><a href="../QUICKSTART/">Quickstart Guide</a></strong>.</p>
 
 
 
