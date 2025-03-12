@@ -15,7 +15,10 @@
         <label for="ha">Enable HA:</label>
         <input type="checkbox" id="ha" name="ha"><br><br>
 
-        <button type="submit">Create</button>
+        <label for="loadbalancer">Enable LoadBalancer:</label>
+        <input type="checkbox" id="loadbalancer" name="loadbalancer"><br><br>
+
+        <button type="submit" id="submitButton">Create</button>
     </form>
 
     <div id="result" style="display:none;">
@@ -28,17 +31,27 @@
     <script>
         document.getElementById("vclusterForm").addEventListener("submit", async function(e) {
             e.preventDefault();
+
+            // Disable submit button to prevent duplicate requests
+            const submitButton = document.getElementById("submitButton");
+            submitButton.disabled = true;
+
             const formData = new FormData();
             const fileInput = document.getElementById("kubeconfigFile");
 
             // ✅ Only append kubeconfigFile if a file was selected
-            if(fileInput.files.length > 0) {
+            if (fileInput.files.length > 0) {
                 formData.append("kubeconfigFile", fileInput.files[0]);
             }
 
             formData.append("clusterName", document.getElementById("name").value);
-            if(document.getElementById("ha").checked){
+
+            if (document.getElementById("ha").checked) {
                 formData.append("ha", "on");
+            }
+
+            if (document.getElementById("loadbalancer").checked) {
+                formData.append("loadbalancer", "on");
             }
 
             try {
@@ -64,9 +77,11 @@
 
             } catch (error) {
                 alert(error.message);
+            } finally {
+                // Re-enable submit button after request is complete
+                submitButton.disabled = false;
             }
         });
     </script>
 </body>
 </html>
-

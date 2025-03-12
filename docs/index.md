@@ -1,6 +1,6 @@
-# KubeHatch CLI - Ephemeral Kubernetes Environments with vCluster
+# KubeHatch - Minimalistic Internal Kubernetes platform
 
-KubeHatch CLI simplifies creating virtual Kubernetes clusters (vClusters) dynamically using a user-friendly web UI, automating deployment and management tasks.
+KubeHatch simplifies creating virtual Kubernetes clusters (vClusters) dynamically using a user-friendly web UI, automating deployment and management tasks.
 
 ## Overview
 

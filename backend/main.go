@@ -62,6 +62,8 @@ func vclusterHandler(w http.ResponseWriter, r *http.Request) {
 	// Get user input
 	clusterName := r.FormValue("clusterName")
 	ha := r.FormValue("ha") == "on"
+	loadBalancer := r.FormValue("loadbalancer") == "on"
+
 	if clusterName == "" {
 		http.Error(w, "clusterName is required", http.StatusBadRequest)
 		return
@@ -91,13 +93,13 @@ func vclusterHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Generate vcluster.yaml
-	err = createVclusterYAML(workingDir, clusterName, ha)
+	err = createVclusterYAML(workingDir, clusterName, ha, loadBalancer)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error creating YAML: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	// Create vCluster
+	// Create vCluster (only once)
 	err = executeVClusterCreate(clusterName, kubeconfigPath, workingDir)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error creating vCluster: %v", err), http.StatusInternalServerError)
@@ -133,22 +135,29 @@ func vclusterHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // Generates vcluster.yaml
-func createVclusterYAML(workingDir, clusterName string, ha bool) error {
+func createVclusterYAML(workingDir, clusterName string, ha, loadBalancer bool) error {
 	replicas := 1
 	if ha {
 		replicas = 3
 	}
 
+	// Base YAML structure
 	vclusterYaml := fmt.Sprintf(`apiVersion: v1
 kind: VirtualCluster
 metadata:
   name: %s
 spec:
   replicas: %d
-  service:
-    type: LoadBalancer
 `, clusterName, replicas)
 
+	// Append LoadBalancer only if checked
+	if loadBalancer {
+		vclusterYaml += `  service:
+    type: LoadBalancer
+`
+	}
+
+	// Write YAML file
 	err := os.WriteFile(filepath.Join(workingDir, "vcluster.yaml"), []byte(vclusterYaml), 0644)
 	if err != nil {
 		log.Printf("❌ Error writing vcluster.yaml: %v", err)
@@ -220,4 +229,3 @@ func downloadHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/octet-stream")
 	http.ServeFile(w, r, kcPath)
 }
-
