@@ -32,10 +32,12 @@ cd kubehatch
 
 Ensure you're logged in to your container registry (e.g., Docker Hub).
 ```
-docker build -t yourdockerusername/kubehatch-backend -f Dockerfile.backend .
-docker push your-container-registry/your-image-name:latest
+docker build -t ttl.sh/kubehatch-backend -f backend/Dockerfile.backend backend/
+docker push ttl.sh/kubehatch-backend
+docker build -t ttl.sh/kubehatch-frontend -f frontend/Dockerfile.frontend frontend/
+docker push ttl.sh/kubehatch-frontend:latest
 ```
-Replace `your-container-registry` with your registry and image name.
+Replace `ttl.sh` with your registry and image name.
 
 ### Step 3: Deploy to Kubernetes
 

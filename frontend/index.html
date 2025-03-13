@@ -29,6 +29,9 @@
     </div>
 
     <script>
+        // Store the previous Blob URL to revoke it later
+        let previousBlobUrl = null;
+
         document.getElementById("vclusterForm").addEventListener("submit", async function(e) {
             e.preventDefault();
 
@@ -36,10 +39,22 @@
             const submitButton = document.getElementById("submitButton");
             submitButton.disabled = true;
 
+            // Clear previous results
+            const resultDiv = document.getElementById("result");
+            const kubeconfigResult = document.getElementById("kubeconfigResult");
+            const downloadLink = document.getElementById("downloadLink");
+            kubeconfigResult.value = ""; // Clear textarea
+            resultDiv.style.display = "none"; // Hide result div
+            if (previousBlobUrl) {
+                URL.revokeObjectURL(previousBlobUrl); // Revoke previous Blob URL
+                previousBlobUrl = null;
+            }
+            downloadLink.href = "#"; // Reset download link
+
+            // Build form data
             const formData = new FormData();
             const fileInput = document.getElementById("kubeconfigFile");
 
-            // ✅ Only append kubeconfigFile if a file was selected
             if (fileInput.files.length > 0) {
                 formData.append("kubeconfigFile", fileInput.files[0]);
             }
@@ -55,7 +70,6 @@
             }
 
             try {
-                // ✅ Use relative URL so Ingress properly routes the request
                 const response = await fetch("/api/vcluster", {
                     method: "POST",
                     body: formData
@@ -66,14 +80,15 @@
                 }
 
                 const data = await response.json();
-                document.getElementById("kubeconfigResult").value = data.kubeconfig;
-                document.getElementById("result").style.display = "block";
+                kubeconfigResult.value = data.kubeconfig;
+                resultDiv.style.display = "block";
 
-                // ✅ Allow user to download kubeconfig
+                // Create new Blob and URL for download
                 const blob = new Blob([data.kubeconfig], { type: 'application/octet-stream' });
                 const url = URL.createObjectURL(blob);
-                document.getElementById("downloadLink").href = url;
-                document.getElementById("downloadLink").download = "kubeconfig.yaml";
+                downloadLink.href = url;
+                downloadLink.download = "kubeconfig.yaml";
+                previousBlobUrl = url; // Store the URL to revoke later
 
             } catch (error) {
                 alert(error.message);

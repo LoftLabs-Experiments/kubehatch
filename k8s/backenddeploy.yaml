@@ -20,7 +20,7 @@ spec:
             secretName: vcluster-default-kubeconfig
       containers:
         - name: backend
-          image: ttl.sh/vcluster-back:v3
+          image: ttl.sh/kubehatch-backend:v27
           ports:
             - containerPort: 8081
           volumeMounts:

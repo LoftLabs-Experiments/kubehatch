@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: vcluster-frontend
-        image: ttl.sh/vcluster-frontend:v2
+        image: ttl.sh/kubehatch-frontend:v7
         ports:
         - containerPort: 80
 
