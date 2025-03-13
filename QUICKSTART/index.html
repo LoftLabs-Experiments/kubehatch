@@ -292,54 +292,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#prerequisitesif-you-are-not-doing-on-the-playground" class="md-nav__link">
     <span class="md-ellipsis">
-      🛠 Prerequisites
+      🛠 Prerequisites(if you are not doing on the playground)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-create-kubernetes-secret-for-authentication-and-default-kubeconfig" class="md-nav__link">
+  <a href="#step-1-clone-the-repo-and-build-push-docker-image" class="md-nav__link">
     <span class="md-ellipsis">
-      🔐 Step 1: Create Kubernetes Secret for Authentication and default Kubeconfig
+      Step 1: Clone the repo and Build + Push Docker Image
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-the-frontend-and-backend-images" class="md-nav__link">
+  <a href="#step-2-create-kubernetes-secret-for-authentication-and-default-kubeconfig" class="md-nav__link">
     <span class="md-ellipsis">
-      Build the Frontend and backend Images
+      🔐 Step 2: Create Kubernetes Secret for Authentication and default Kubeconfig
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-deploy-the-frontend-and-backend-manifests" class="md-nav__link">
+  <a href="#step-3-deploy-the-frontend-and-backend-manifests" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Step 2: Deploy the frontend and backend manifests
+      🚀 Step 3: Deploy the frontend and backend manifests
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy-ingress-nginx-controller" class="md-nav__link">
+  <a href="#step-4deploy-ingress-nginx-controller" class="md-nav__link">
     <span class="md-ellipsis">
-      Deploy ingress nginx controller
+      Step 4:Deploy ingress nginx controller
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#step-5-create-ingress" class="md-nav__link">
     <span class="md-ellipsis">
+      Step 5: Create ingress
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#step-6-open-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Open The UI
     </span>
   </a>
   
@@ -401,54 +410,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#prerequisitesif-you-are-not-doing-on-the-playground" class="md-nav__link">
     <span class="md-ellipsis">
-      🛠 Prerequisites
+      🛠 Prerequisites(if you are not doing on the playground)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-create-kubernetes-secret-for-authentication-and-default-kubeconfig" class="md-nav__link">
+  <a href="#step-1-clone-the-repo-and-build-push-docker-image" class="md-nav__link">
     <span class="md-ellipsis">
-      🔐 Step 1: Create Kubernetes Secret for Authentication and default Kubeconfig
+      Step 1: Clone the repo and Build + Push Docker Image
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-the-frontend-and-backend-images" class="md-nav__link">
+  <a href="#step-2-create-kubernetes-secret-for-authentication-and-default-kubeconfig" class="md-nav__link">
     <span class="md-ellipsis">
-      Build the Frontend and backend Images
+      🔐 Step 2: Create Kubernetes Secret for Authentication and default Kubeconfig
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-deploy-the-frontend-and-backend-manifests" class="md-nav__link">
+  <a href="#step-3-deploy-the-frontend-and-backend-manifests" class="md-nav__link">
     <span class="md-ellipsis">
-      🚀 Step 2: Deploy the frontend and backend manifests
+      🚀 Step 3: Deploy the frontend and backend manifests
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy-ingress-nginx-controller" class="md-nav__link">
+  <a href="#step-4deploy-ingress-nginx-controller" class="md-nav__link">
     <span class="md-ellipsis">
-      Deploy ingress nginx controller
+      Step 4:Deploy ingress nginx controller
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#step-5-create-ingress" class="md-nav__link">
     <span class="md-ellipsis">
+      Step 5: Create ingress
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#step-6-open-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Open The UI
     </span>
   </a>
   
@@ -474,59 +492,51 @@
 
 
 <h1 id="quickstart-guide-deploying-kubehatch-on-kubernetes">🚀 Quickstart Guide: Deploying KubeHatch on Kubernetes</h1>
-<p>This guide walks you through deploying KubeHatch on a Kubernetes cluster.</p>
-<h2 id="prerequisites">🛠 Prerequisites</h2>
+<p>This guide walks you through deploying KubeHatch on a Kubernetes cluster. In this Quickstart we will do it on <a href="https://labs.iximiuz.com/playgrounds">IX Playground</a></p>
+<h2 id="prerequisitesif-you-are-not-doing-on-the-playground">🛠 Prerequisites(if you are not doing on the playground)</h2>
 <p>Ensure you have the following tools installed before proceeding:
 - <a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a>
 - <a href="https://helm.sh/docs/intro/install/">Helm</a>
-- Access to a Kubernetes cluster
-- (Optional) <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">Kustomize</a> if using overlays</p>
+- Access to a Kubernetes cluster</p>
 <hr />
-<h2 id="step-1-create-kubernetes-secret-for-authentication-and-default-kubeconfig">🔐 Step 1: Create Kubernetes Secret for Authentication and default Kubeconfig</h2>
+<h2 id="step-1-clone-the-repo-and-build-push-docker-image">Step 1: Clone the repo and Build + Push Docker Image</h2>
+<p>Ensure you're logged in to your container registry (e.g., Docker Hub).</p>
+<pre><code>git clone https://github.com/LoftLabs-Experiments/kubehatch.git
+cd kubehatch
+docker build -t ttl.sh/kubehatch-backend:v1 -f backend/Dockerfile.backend backend/
+docker push ttl.sh/kubehatch-backend
+docker build -t ttl.sh/kubehatch-frontend:v1 -f frontend/Dockerfile.frontend frontend/
+docker push ttl.sh/kubehatch-frontend:latest
+</code></pre>
+<p>Replace <code>ttl.sh</code> with your registry and image name.</p>
+<h2 id="step-2-create-kubernetes-secret-for-authentication-and-default-kubeconfig">🔐 Step 2: Create Kubernetes Secret for Authentication and default Kubeconfig</h2>
 <p>Before deploying, create a <strong>Kubernetes Secret</strong> to store sensitive credentials.</p>
-<pre><code class="language-sh">kubectl create secret generic vcluster-basic-auth  --from-literal=username=admin  --from-literal=password=password
+<pre><code class="language-sh">echo &quot;admin:$(openssl passwd -apr1 saiyam)&quot; &gt; auth
+kubectl create secret generic vcluster-basic-auth --from-file=auth
 kubectl create secret generic vcluster-default-kubeconfig --from-file=kubeconfig=/root/.kube/config -n default
 </code></pre>
 <p>NOTE - Make sure to replace the path of your kubeconfig file.</p>
-<h2 id="build-the-frontend-and-backend-images">Build the Frontend and backend Images</h2>
-<h2 id="step-2-deploy-the-frontend-and-backend-manifests">🚀 Step 2: Deploy the frontend and backend manifests</h2>
-<p>Replace the backedna dn frontend deployment with the images you created and then deploy the manifest from the k8s folder.</p>
-<pre><code>
+<h2 id="step-3-deploy-the-frontend-and-backend-manifests">🚀 Step 3: Deploy the frontend and backend manifests</h2>
+<p>Replace the backend and frontend deployment with the images you created and then deploy the manifest from the k8s folder.</p>
+<pre><code>kubectl apply -f k8s/backenddeploy.yaml
+kubectl apply -f k8s/deploymentfrontend.yaml
+kubectl apply -f k8s/role.yaml
+kubectl apply -f k8s/svcfrontend.yaml
+kubectl apply -f k8s/backendsvc.yaml
 </code></pre>
-<h2 id="deploy-ingress-nginx-controller">Deploy ingress nginx controller</h2>
+<h2 id="step-4deploy-ingress-nginx-controller">Step 4:Deploy ingress nginx controller</h2>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.4/deploy/static/provider/cloud/deploy.yaml
 
 </code></pre>
-<h2 id="_1"></h2>
-<p>🏗 Step 3: Deploy Using Helm (Alternative)
-If you prefer Helm, add the Helm repository and install KubeHatch:</p>
-<p>sh
-Copy
-Edit
-helm repo add kubehatch https://loftlabs-experiments.github.io/kubehatch/
-helm repo update
-helm install kubehatch kubehatch/kubehatch -n kubehatch --create-namespace
-Verify the deployment:</p>
-<p>sh
-Copy
-Edit
-kubectl get deployments -n kubehatch
-🔍 Step 4: Access the KubeHatch Service
-To access the service locally, use kubectl port-forward:</p>
-<p>sh
-Copy
-Edit
-kubectl port-forward svc/kubehatch-service 8080:80 -n kubehatch
-Then, visit http://localhost:8080 in your browser.</p>
-<p>🎯 Next Steps
-Check logs: kubectl logs -f deployment/kubehatch -n kubehatch
-Expose externally with an Ingress:
-sh
-Copy
-Edit
-kubectl apply -f ingress.yaml
-Read the Build from Source Guide for local development.
-✅ Done! 🎉 You have successfully deployed KubeHatch on Kubernetes.</p>
+<h2 id="step-5-create-ingress">Step 5: Create ingress</h2>
+<p>If you are on the playground then you need to first expose the public link on the nodeport of the ingress and then use that as host in your ingress. Sample one from the playground is there in current ingress but it will be different for all. If you are on cluster then point to domain which has the A record of ingress controller LoadBalancer IP.</p>
+<pre><code>kubectl apply -f k8s/ingress.yaml
+</code></pre>
+<p><img alt="" src="../images/ingresssvc.png" />
+<img alt="" src="../images/ingresshost.png" /></p>
+<h2 id="step-6-open-the-ui">Step 6: Open The UI</h2>
+<p>You need to open up the ingress public URL in the browser and Login.
+Currently the username is <code>admin</code> and password is <code>saiyam</code> and after that you can select checkboxes and wait for a couple of minutes for KubeConfig to Populate.</p>
 
 
 

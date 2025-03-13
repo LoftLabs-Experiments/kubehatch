@@ -646,10 +646,12 @@ cd kubehatch
 </code></pre>
 <h3 id="step-2-build-and-push-docker-image">Step 2: Build and Push Docker Image</h3>
 <p>Ensure you're logged in to your container registry (e.g., Docker Hub).</p>
-<pre><code>docker build -t yourdockerusername/kubehatch-backend -f Dockerfile.backend .
-docker push your-container-registry/your-image-name:latest
+<pre><code>docker build -t ttl.sh/kubehatch-backend -f backend/Dockerfile.backend backend/
+docker push ttl.sh/kubehatch-backend
+docker build -t ttl.sh/kubehatch-frontend -f frontend/Dockerfile.frontend frontend/
+docker push ttl.sh/kubehatch-frontend:latest
 </code></pre>
-<p>Replace <code>your-container-registry</code> with your registry and image name.</p>
+<p>Replace <code>ttl.sh</code> with your registry and image name.</p>
 <h3 id="step-3-deploy-to-kubernetes">Step 3: Deploy to Kubernetes</h3>
 <p>Backend Deployment</p>
 <p>Apply Kubernetes manifests:</p>
