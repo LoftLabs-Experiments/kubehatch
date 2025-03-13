@@ -354,6 +354,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-kubehatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using KubeHatch
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using KubeHatch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-vcluster-without-custom-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create vCluster without custom kubeconfig
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -472,6 +514,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-kubehatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using KubeHatch
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using KubeHatch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-vcluster-without-custom-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create vCluster without custom kubeconfig
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -537,6 +621,28 @@ kubectl apply -f k8s/backendsvc.yaml
 <h2 id="step-6-open-the-ui">Step 6: Open The UI</h2>
 <p>You need to open up the ingress public URL in the browser and Login.
 Currently the username is <code>admin</code> and password is <code>saiyam</code> and after that you can select checkboxes and wait for a couple of minutes for KubeConfig to Populate.</p>
+<h2 id="using-kubehatch">Using KubeHatch</h2>
+<p>Create vCluster with custom kubeconfig</p>
+<ul>
+<li>Open the UI.</li>
+<li>Enter a vCluster name.</li>
+<li>Optional: Select kubeconfig file (if not provided, the default cluster kubeconfig is used).</li>
+<li>Optional: Select if you want to expose your vcluster as LoadBalancer service</li>
+<li>Click Create.</li>
+<li>Wait for vCluster creation to complete. Your generated kubeconfig will appear, and you can download it for use.</li>
+</ul>
+<h4 id="create-vcluster-without-custom-kubeconfig">Create vCluster without custom kubeconfig</h4>
+<p>Simply provide a name and click Create. The system will automatically use the default kubeconfig from the cluster.</p>
+<h2 id="cleanup">Cleanup</h2>
+<p>Delete virtual clusters manually using:</p>
+<pre><code>vcluster delete &lt;cluster-name&gt; -n vcluster-&lt;cluster-name&gt;
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>Verify RBAC permissions are correctly set.</p>
+<p>Check logs:</p>
+<pre><code>kubectl logs deploy/vcluster-backend
+</code></pre>
+<p>Enjoy creating on demand Kubernetes clusters seamlessly with KubeHatch!</p>
 
 
 
