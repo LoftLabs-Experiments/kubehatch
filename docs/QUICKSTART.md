@@ -58,3 +58,39 @@ kubectl apply -f k8s/ingress.yaml
 ## Step 6: Open The UI
 You need to open up the ingress public URL in the browser and Login.
 Currently the username is `admin` and password is `saiyam` and after that you can select checkboxes and wait for a couple of minutes for KubeConfig to Populate.
+
+## Using KubeHatch
+
+Create vCluster with custom kubeconfig
+
+- Open the UI.
+- Enter a vCluster name.
+- Optional: Select kubeconfig file (if not provided, the default cluster kubeconfig is used).
+- Optional: Select if you want to expose your vcluster as LoadBalancer service
+- Click Create.
+- Wait for vCluster creation to complete. Your generated kubeconfig will appear, and you can download it for use.
+
+#### Create vCluster without custom kubeconfig
+
+Simply provide a name and click Create. The system will automatically use the default kubeconfig from the cluster.
+
+## Cleanup
+
+Delete virtual clusters manually using:
+
+```
+vcluster delete <cluster-name> -n vcluster-<cluster-name>
+```
+
+##Troubleshooting
+
+Verify RBAC permissions are correctly set.
+
+Check logs:
+
+```
+kubectl logs deploy/vcluster-backend
+```
+
+
+Enjoy creating on demand Kubernetes clusters seamlessly with KubeHatch!
